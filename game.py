@@ -10,11 +10,11 @@ class Array:
 
     @staticmethod
     def randomArray():
-        width = random.randrange(25, 30)
-        height = random.randrange(10, 15)
-        array = [[0] * width for i in range(height)]
-        for i in range(height):
-            for j in range(width):
+        gen = random.randrange(20, 25)
+        yuk = random.randrange(10, 15)
+        array = [[0] * gen for i in range(yuk)]
+        for i in range(yuk):
+            for j in range(gen):
                 if random.randrange(0, 2) == 1:
                     array[i][j] = 1
                 else:
@@ -26,7 +26,7 @@ class Array:
         for i in range(self.yuk):
             for j in range(self.gen):
                 if self.myArray[i][j]:
-                    print("1|", end='')
+                    print("*|", end='')
                 else:
                     print(" |", end='')
             print()
@@ -34,7 +34,8 @@ class Array:
     pass
 
     def countKomsu(self,eksenX,eksenY):
-        toplam = 0        
+        toplam = 0
+        
         if eksenX == 0 and eksenY == 0:
             toplam += self.myArray[eksenY + 1][eksenX]
             toplam += self.myArray[eksenY + 1][eksenX + 1]
@@ -93,9 +94,7 @@ class Array:
             toplam += self.myArray[eksenY + 1][eksenX]
             toplam += self.myArray[eksenY - 1][eksenX]
         return toplam
-    
-    
-    
+
     def arrayCheck(self):
         for i in range(self.yuk):
             for j in range(self.gen):
@@ -103,8 +102,30 @@ class Array:
                     return True
         return False
 
+    def nextArray(self):
+        eksenY = 0
+        eksenX = 0
+        new_array = []
+        for eksenY in range(self.yuk):
+            eksenX = 0
+            changeArray = []
+            for eksenX in range(self.gen):
+                if self.countKomsu(eksenX,eksenY) > 3:
+                    changeArray.append(0)
+                elif self.countKomsu(eksenX,eksenY) < 2:
+                    changeArray.append(0)
+                elif self.myArray[eksenY][eksenX] == 0 and self.countKomsu(eksenX,eksenY) == 3:
+                    changeArray.append(1)
+                else:
+                    changeArray.append(self.myArray[eksenY][eksenX])
+                eksenX += 1
+            new_array.append(changeArray)
+            eksenY += 1
+        self.myArray = new_array
+
 if __name__ == '__main__':
     hello = Array.randomArray()
     hello.printArray()
     while hello.arrayCheck():
+        hello.nextArray()
         hello.printArray()
