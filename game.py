@@ -8,7 +8,6 @@ class Array:
         self.gen = self.myArray[0].__len__()
         self.extraArray = _extraArray
 
-
     @staticmethod
     def randomArray():
         width = random.randrange(25, 30)
@@ -35,7 +34,6 @@ class Array:
     pass
 
     def countKomsu(self,eksenX,eksenY):
-
         toplam = 0        
         if eksenX == 0 and eksenY == 0:
             toplam += self.myArray[eksenY + 1][eksenX]
@@ -96,7 +94,17 @@ class Array:
             toplam += self.myArray[eksenY - 1][eksenX]
         return toplam
     
+    
+    
+    def arrayCheck(self):
+        for i in range(self.yuk):
+            for j in range(self.gen):
+                if self.myArray[i][j]:
+                    return True
+        return False
 
 if __name__ == '__main__':
     hello = Array.randomArray()
     hello.printArray()
+    while hello.arrayCheck():
+        hello.printArray()
