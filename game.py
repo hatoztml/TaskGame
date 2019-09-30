@@ -7,6 +7,7 @@ class Array:
         self.yuk = self.myArray.__len__()
         self.gen = self.myArray[0].__len__()
         self.extraArray = _extraArray
+        self.printCheck = True
 
     @staticmethod
     def randomArray():
@@ -15,20 +16,24 @@ class Array:
         array = [[0] * gen for i in range(yuk)]
         for i in range(yuk):
             for j in range(gen):
-                if random.randrange(0, 2) == 1:
-                    array[i][j] = 1
-                else:
-                    array[i][j] = 0
+                array[i][j] = random.randrange(0, 2) == 1
+                array[i][j] = random.randrange(0, 2) == 0 
         return Array(array)
+
 
     def printArray(self):
         print("Yukseklik =", self.yuk, "Ve  Genislik =", self.gen)
         for i in range(self.yuk):
             for j in range(self.gen):
-                if self.myArray[i][j]:
+                x = self.myArray[i][j]
+                def one(): 
                     print("*|", end='')
-                else:
+                def zero():
                     print(" |", end='')
+                {
+                1:  one,
+                0: zero,
+                }.get(x)()                    
             print()
         print("\n--------------------------------------------")
     pass
@@ -98,8 +103,7 @@ class Array:
     def arrayCheck(self):
         for i in range(self.yuk):
             for j in range(self.gen):
-                if self.myArray[i][j]:
-                    return True
+                return True
         return False
 
     def nextArray(self):
